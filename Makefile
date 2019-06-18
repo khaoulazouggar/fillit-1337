@@ -6,7 +6,7 @@
 #    By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/18 15:36:19 by kzouggar          #+#    #+#              #
-#    Updated: 2019/06/18 16:18:12 by kzouggar         ###   ########.fr        #
+#    Updated: 2019/06/18 21:27:05 by kzouggar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	Make -C libft
-	ar rc $@ $^
-	ranlib $@
-
-%.o : %.c
-	$(CC) -c $(SRCS)
+	$(CC) -o $(NAME) $(SRCS) libft/libft.a
 
 clean :
 	Make -C libft clean

@@ -6,7 +6,7 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 15:18:56 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/18 19:38:01 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/06/18 21:21:40 by kzouggar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,8 @@ int		main(int ac, char *av[])
 	v.c = 'A';
 	v.fd = open(av[1], O_RDONLY);
 	if (ac != 2)
-	{
-		ft_putstr("usage: fillit source_file");
-		return (0);
-	}
-	if (!tetris(v.fd, &t))
+		ft_putstr("usage: fillit source_file\n");
+	else if (!tetris(v.fd, &t))
 		ft_putstr("error\n");
 	else
 	{
@@ -54,7 +51,7 @@ int		main(int ac, char *av[])
 		point_tab(&t);
 		if (solve(&t, 0) == 0)
 			t.taille++;
+		affiche(t);
 	}
-	affiche(t);
 	return (0);
 }

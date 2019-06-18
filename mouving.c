@@ -6,7 +6,7 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 15:14:56 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/18 19:45:33 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/06/18 21:15:05 by kzouggar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int		search_tag(t_tetri t, char way)
 	int i;
 	int j;
 
+	i = -1;
 	if (way == 'x')
 	{
-		i = -1;
 		while (++i < 4)
 		{
 			j = -1;
@@ -30,7 +30,6 @@ int		search_tag(t_tetri t, char way)
 	}
 	else
 	{
-		i = -1;
 		while (++i < 4)
 		{
 			j = -1;
