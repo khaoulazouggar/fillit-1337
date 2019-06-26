@@ -6,7 +6,7 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:48:29 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/18 19:43:02 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/06/26 20:31:35 by kzouggar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		read_tetri(int fd, t_tetri *t)
 			ft_strdel(&tmp);
 		}
 	}
-	return ((r == 21 || r == 20) ? -1 : r);
+	return ((r == 21 || r == 20) ? r : -1);
 }
 
 int		valide_tetri(t_tetri t)
@@ -103,7 +103,7 @@ int		tetris(int fd, t_tetris *k)
 
 	count = 0;
 	k->nbt = 0;
-	while ((r = read_tetri(fd, &t)) == -1)
+	while ((r = read_tetri(fd, &t)) != -1)
 	{
 		k->nbt++;
 		if (k->nbt > 26)
@@ -112,8 +112,10 @@ int		tetris(int fd, t_tetris *k)
 			k->tetrims[k->nbt - 1] = t;
 		else
 			return (0);
+		if (r == 20)
+			break ;
 	}
-	if (r != 0)
+	if (r != 20)
 		return (0);
 	return (1);
 }

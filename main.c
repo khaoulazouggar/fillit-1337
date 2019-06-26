@@ -6,7 +6,7 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 15:18:56 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/18 21:21:40 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:44:38 by kzouggar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int		main(int ac, char *av[])
 		}
 		t.taille = ft_sqrt(t.nbt * 4);
 		point_tab(&t);
-		if (solve(&t, 0) == 0)
-			t.taille++;
+		while (solve(&t, 0) == 0 && t.taille++)
+			point_tab(&t);
 		affiche(t);
 	}
 	return (0);
