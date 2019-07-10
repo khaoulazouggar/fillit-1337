@@ -76,6 +76,7 @@ ft_strsub.c\
 ft_strtrim.c\
 ft_tolower.c\
 ft_toupper.c\
+ft_str_occurrence.c\
 numlen.c
 OBJ = $(patsubst %.c, %.o, $(SRCS))
 CFLAGS = -Wall -Wextra -Werror

@@ -26,7 +26,7 @@ typedef struct	s_point
 
 typedef struct	s_tetri
 {
-	char		tetrimino[4][5];
+	char		tetrimino[4][4];
 	t_point		hashtag[4];
 	char		c;
 }				t_tetri;
@@ -35,15 +35,14 @@ typedef struct	s_tetris
 {
 	t_tetri		tetrims[26];
 	int			nbt;
-	char		tab[11][11];
+	char		**tab;
 	int			taille;
 }				t_tetris;
 
 typedef struct	s_var
 {
 	int			fd;
-	int			i;
-	char		c;
+	int			solved;
 }				t_var;
 
 int				read_tetri(int fd, t_tetri *t);
@@ -57,4 +56,5 @@ void			delete_tetri(t_tetris *t, int index_tetri, t_point p);
 void			point_tab(t_tetris *t);
 void			affiche(t_tetris t);
 int				solve(t_tetris *t, int i);
+void			prepar_tetri(t_tetris *t);
 #endif

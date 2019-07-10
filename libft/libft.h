@@ -6,7 +6,7 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 00:58:30 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/18 18:55:55 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/07/03 10:51:39 by lsoulima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ int				ft_isspace(int c);
 void			afflst(t_list *lst);
 void			ft_del(void *content, size_t content_size);
 int				ft_sqrt(int nb);
+int				ft_str_occurrence(const char *s, char c);
 #endif

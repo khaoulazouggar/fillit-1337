@@ -6,7 +6,7 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 15:14:56 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/18 21:15:05 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:20:09 by kzouggar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ int		search_tag(t_tetri t, char way)
 	return (-1);
 }
 
+void	prepar_tetri(t_tetris *t)
+{
+	int	i;
+
+	i = 0;
+	while (i < t->nbt)
+	{
+		t->tetrims[i].c = 'A' + i;
+		mouve_tetri(&t->tetrims[i++]);
+	}
+}
+
 void	mouve_tetri(t_tetri *t)
 {
 	int		i;
@@ -52,11 +64,8 @@ void	mouve_tetri(t_tetri *t)
 	i = -1;
 	p.x = search_tag(*t, 'x');
 	p.y = search_tag(*t, 'y');
-	while (++i < 4)
-	{
-		j = -1;
+	while (++i < 4 && (j = -1))
 		while (++j < 4)
-		{
 			if (t->tetrimino[i][j] == '#')
 			{
 				t->tetrimino[i][j] = '.';
@@ -65,6 +74,4 @@ void	mouve_tetri(t_tetri *t)
 				t->hashtag[k].y = j - p.y;
 				k++;
 			}
-		}
-	}
 }

@@ -27,12 +27,44 @@ void	affiche(t_tetris t)
 	}
 }
 
+void	free_map(char **map, int size)
+{
+	if (map != NULL)
+	{
+		while (size--)
+			free(map[size]);
+		free(map);
+	}
+}
+
+char	**allocate_map(int size)
+{
+	int		i;
+	char	**map;
+
+	i = 0;
+	if (!(map = (char **)ft_memalloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	while (i < size)
+	{
+		if (!(map[i] = (char *)ft_strnew(size)))
+		{
+			while (i--)
+				free(map[i]);
+			free(map);
+			return (NULL);
+		}
+		i++;
+	}
+	return (map);
+}
+
 int		main(int ac, char *av[])
 {
 	t_var		v;
 	t_tetris	t;
 
-	v.c = 'A';
+	v.solved = 0;
 	v.fd = open(av[1], O_RDONLY);
 	if (ac != 2)
 		ft_putstr("usage: fillit source_file\n");
@@ -40,18 +72,17 @@ int		main(int ac, char *av[])
 		ft_putstr("error\n");
 	else
 	{
-		v.i = -1;
-		while (++v.i < t.nbt)
-		{
-			t.tetrims[v.i].c = v.c;
-			mouve_tetri(&t.tetrims[v.i]);
-			v.c++;
-		}
+		prepar_tetri(&t);
 		t.taille = ft_sqrt(t.nbt * 4);
-		point_tab(&t);
-		while (solve(&t, 0) == 0 && t.taille++)
+		while (v.solved == 0)
+		{
+			if (!(t.tab = allocate_map(t.taille)))
+				return (-1);
 			point_tab(&t);
+			!(v.solved = solve(&t, 0)) ? t.taille++ : 0;
+		}
 		affiche(t);
+		free_map(t.tab, t.taille);
 	}
 	return (0);
 }

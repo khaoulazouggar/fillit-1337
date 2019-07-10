@@ -6,67 +6,50 @@
 /*   By: kzouggar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:48:29 by kzouggar          #+#    #+#             */
-/*   Updated: 2019/06/26 20:31:35 by kzouggar         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:19:21 by kzouggar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		read_tetri(int fd, t_tetri *t)
+int	read_tetri(int fd, t_tetri *t)
 {
 	char	buff[22];
 	int		r;
 	int		i;
 	int		count;
-	char	*tmp;
 
 	i = -1;
-	count = 0;
 	r = read(fd, buff, 21);
 	buff[r] = '\0';
-	while (buff[++i])
-		if (buff[i] == '\n')
-			count++;
+	count = ft_str_occurrence(buff, '\n');
 	i = -1;
 	if ((r == 20 && count == 4) || (r == 21 && count == 5))
-	{
 		while (++i < 4)
-		{
-			tmp = ft_strsub(buff, i * 5, 4);
-			ft_strcpy(t->tetrimino[i], tmp);
-			ft_strdel(&tmp);
-		}
-	}
+			ft_memcpy(t->tetrimino[i], &buff[i * 5], 4);
 	return ((r == 21 || r == 20) ? r : -1);
 }
 
-int		valide_tetri(t_tetri t)
+int	valide_tetri(t_tetri t)
 {
 	int point;
 	int tag;
 	int i;
 	int j;
 
-	i = 0;
+	i = -1;
 	tag = 0;
 	point = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
+	while (++i < 4 && (j = -1))
+		while (++j < 4)
 		{
-			if (t.tetrimino[i][j] == '#')
-				tag++;
-			else if (t.tetrimino[i][j] == '.')
-				point++;
-			j++;
+			tag += t.tetrimino[i][j] == '#';
+			point += t.tetrimino[i][j] == '.';
 		}
-		i++;
-	}
 	return (((tag == 4 && point == 12)) ? 1 : 0);
 }
 
-int		check_validity(t_tetri t)
+int	check_validity(t_tetri t)
 {
 	int i;
 	int j;
@@ -74,32 +57,23 @@ int		check_validity(t_tetri t)
 
 	i = -1;
 	bloc = 0;
-	while (++i < 4)
-	{
-		j = -1;
+	while (++i < 4 && (j = -1))
 		while (++j < 4)
-		{
 			if (t.tetrimino[i][j] == '#')
 			{
-				if ((j + 1) < 4 && t.tetrimino[i][j + 1] == '#')
-					bloc++;
-				if ((j - 1) >= 0 && t.tetrimino[i][j - 1] == '#')
-					bloc++;
-				if ((i + 1) < 4 && t.tetrimino[i + 1][j] == '#')
-					bloc++;
-				if ((i - 1) >= 0 && t.tetrimino[i - 1][j] == '#')
-					bloc++;
+				bloc += ((j + 1) < 4 && t.tetrimino[i][j + 1] == '#');
+				bloc += ((j - 1) >= 0 && t.tetrimino[i][j - 1] == '#');
+				bloc += ((i + 1) < 4 && t.tetrimino[i + 1][j] == '#');
+				bloc += ((i - 1) >= 0 && t.tetrimino[i - 1][j] == '#');
 			}
-		}
-	}
 	return ((bloc == 6 || bloc == 8) ? 1 : 0);
 }
 
-int		tetris(int fd, t_tetris *k)
+int	tetris(int fd, t_tetris *k)
 {
-	int		r;
-	int		count;
-	t_tetri	t;
+	int			r;
+	int			count;
+	t_tetri		t;
 
 	count = 0;
 	k->nbt = 0;

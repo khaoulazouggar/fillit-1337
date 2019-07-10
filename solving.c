@@ -19,13 +19,9 @@ int		deplace_tetris(t_tetris *t, int index_tetri, t_point p)
 	i = -1;
 	while (++i < 4)
 	{
-		if (p.x + t->tetrims[index_tetri].hashtag[i].x > t->taille ||
-				p.y + t->tetrims[index_tetri].hashtag[i].y > t->taille)
+		if (p.x + t->tetrims[index_tetri].hashtag[i].x >= t->taille ||
+				p.y + t->tetrims[index_tetri].hashtag[i].y >= t->taille)
 			return (0);
-	}
-	i = -1;
-	while (++i < 4)
-	{
 		if (t->tab[p.x + t->tetrims[index_tetri].hashtag[i].x]
 				[p.y + t->tetrims[index_tetri].hashtag[i].y] != '.')
 			return (0);
@@ -55,15 +51,10 @@ void	delete_tetri(t_tetris *t, int index_tetri, t_point p)
 void	point_tab(t_tetris *t)
 {
 	int i;
-	int j;
 
 	i = -1;
 	while (++i < t->taille)
-	{
-		j = -1;
-		while (++j < t->taille)
-			t->tab[i][j] = '.';
-	}
+		ft_memset(t->tab[i], '.', t->taille);
 }
 
 int		solve(t_tetris *t, int i)
